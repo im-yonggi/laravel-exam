@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use App\Http\Requests\ClientRequest;
 
 class TodoController extends Controller
 {
@@ -12,15 +13,13 @@ class TodoController extends Controller
         return view('index', ['task'=> $task]);
     }
 
-    public function create(Request $request){
-        $this -> validate($request, Todo::$rules);
+    public function create(ClientRequest $request){
         $task = $request -> all();
         Todo::create($task);
         return redirect('/');
     }
 
-    public function update(Request $request){
-        $this -> validate($request, Todo::$rules);
+    public function update(ClientRequest $request){
         $task = $request -> all();
         unset($task['_token']);
         Todo::where('id', $request->id)->update($task);
