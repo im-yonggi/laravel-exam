@@ -80,6 +80,13 @@ th{
   <div class="container">
     <main>
       <h1>Todo List</h1>
+      @if(count($errors)>0)
+      <ul>
+        @foreach($errors->all() as $error)
+        <li>{{$errors}}</li>
+        @endforeach
+      </ul>
+      @endif
       <form action="/todo/create" method="post">
       @csrf
         <input type="text" name="content" class="create--form">
